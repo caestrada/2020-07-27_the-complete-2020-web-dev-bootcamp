@@ -1,1 +1,1 @@
-# 2020-07-27_the-complete-2020-web-dev-bootcamp
+# The Complete 2020 Web Dev Bootcamp
