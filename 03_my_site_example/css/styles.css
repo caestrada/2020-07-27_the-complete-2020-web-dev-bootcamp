@@ -59,3 +59,30 @@ a {
     left: 300px;
     bottom: 300px;
 }
+
+.skill-row {
+    width: 50%;
+    margin: 100px auto 100px auto;
+    text-align: left;
+    line-height: 2.0;
+}
+
+.code-img {
+    width: 25%;
+    float: left;
+    margin-right: 30px;
+}
+
+.chilli-img {
+    width: 25%;
+    float: right;
+    margin-left: 30px;
+}
+
+/* .code-skill-description {
+    clear: left;
+}
+
+.chilli-skill-description {
+    clear: right;
+} */
