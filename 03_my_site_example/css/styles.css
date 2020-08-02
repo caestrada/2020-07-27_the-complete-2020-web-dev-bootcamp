@@ -13,15 +13,23 @@ h1 {
     font-size: 5.625rem; /* 2em = 16px = 100% */
     margin: 50px auto 0 auto;
     font-family: 'Sacramento', cursive;
+    color: #66BFBF;
 }
 
 h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 2.5rem;
+    color: #66BFBF;
+    font-weight: normal;
 }
 
 h3 {
     font-family: 'Montserrat', sans-serif;
+    color: #11999E;
+}
+
+a {
+    color: #11999E;
 }
 
 .top-container {
