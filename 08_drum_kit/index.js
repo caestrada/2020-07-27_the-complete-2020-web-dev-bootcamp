@@ -44,14 +44,12 @@ function playSound(buttonInnerHtml) {
 let buttons = document.querySelectorAll('.drum');
 buttons.forEach((button) => {
     button.addEventListener('click', (event) => {
-        console.log(event.target);
         let buttonInnerHtml = event.target.innerHTML;
         playSound(buttonInnerHtml);
     });
 });
 
 document.addEventListener('keydown', (event) => {
-    console.log(event);
     if(event.type !== 'keydown')
         return;
 
