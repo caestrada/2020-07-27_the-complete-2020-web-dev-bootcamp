@@ -41,11 +41,20 @@ function playSound(buttonInnerHtml) {
     }
 }
 
+function buttonAnimation(currentKey) {
+    let activeButton = document.querySelector('.'+currentKey);
+    activeButton.classList.toggle('pressed');
+    setTimeout(() => {
+        activeButton.classList.toggle('pressed');
+    }, 100);
+}
+
 let buttons = document.querySelectorAll('.drum');
 buttons.forEach((button) => {
     button.addEventListener('click', (event) => {
         let buttonInnerHtml = event.target.innerHTML;
         playSound(buttonInnerHtml);
+        buttonAnimation(buttonInnerHtml);
     });
 });
 
@@ -54,5 +63,6 @@ document.addEventListener('keydown', (event) => {
         return;
 
     playSound(event.key);
+    buttonAnimation(event.key);
 });
 
