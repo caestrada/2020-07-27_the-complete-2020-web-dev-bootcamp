@@ -8,44 +8,33 @@ const app = express()
 app.engine('ejs', engines.ejs);
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}));
+
+let items = [
+  'Buy food',
+  'Cook food',
+  'Eat food',
+];
 
 app.get('/', function (req, res) {
   const today = new Date();
   const currentDay = today.getDay();
 
-  let day = '';
-  if (currentDay === 6 || currentDay === 0) {
-    day = 'Weekend';
-  } else {
-    day = 'Weekday';
-  }
-  switch (currentDay) {
-    case 0:
-      day = 'Sunday';
-      break;
-    case 1:
-      day = 'Monday';
-      break;
-    case 2:
-      day = 'Tuesday';
-      break;
-    case 3:
-      day = 'Wednesday';
-      break;
-    case 4:
-      day = 'Thursday';
-      break;
-    case 5:
-      day = 'Friday';
-      break;
-    case 6:
-      day = 'Saturday';
-      break;
-    default:
-      console.log('Error: current day is equal to: '+currentDay);
-  }
+ let options = {
+   weekday: 'long',
+   day: 'numeric',
+   month: 'long',
+ };
 
-  res.render('index', {day});
+ let day = today.toLocaleDateString('en-US', options);
+
+  res.render('index', {day, items});
+});
+
+app.post('/', (req, res) => {
+  items.push(req.body.newItem);
+
+  res.redirect('/');
 })
 
 app.listen(3000, () => {
