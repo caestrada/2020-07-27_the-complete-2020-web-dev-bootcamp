@@ -16,6 +16,7 @@ let items = [
   'Cook food',
   'Eat food',
 ];
+let workItems = [];
 
 app.get('/', function (req, res) {
   const today = new Date();
@@ -29,13 +30,34 @@ app.get('/', function (req, res) {
 
  let day = today.toLocaleDateString('en-US', options);
 
-  res.render('index', {day, items});
+  res.render('index', {listTitle: day, items});
 });
 
 app.post('/', (req, res) => {
-  items.push(req.body.newItem);
 
-  res.redirect('/');
+  let item = req.body.newItem;
+
+  if (req.body.list === 'Work') {
+    workItems.push(item);
+    res.redirect('/work');
+  } else {
+    items.push(item);
+    res.redirect('/');
+  }
+
+});
+
+app.get('/work', (req, res) => {
+  res.render('index', {listTitle: 'Work', items: workItems})
+})
+
+app.post('/work', (req, res) => {
+  workItems.push(req.body.newItem);
+  res.redirect('/work');
+})
+
+app.get('/about', (req, res) => {
+  res.render('about');
 })
 
 app.listen(3000, () => {
