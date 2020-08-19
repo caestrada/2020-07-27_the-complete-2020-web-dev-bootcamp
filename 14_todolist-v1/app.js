@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const engines = require('consolidate');
 const path = require('path');
 
+const date = require(__dirname + '/date.js');
+
 const app = express()
 
 app.engine('ejs', engines.ejs);
@@ -11,24 +13,15 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
-let items = [
+const items = [
   'Buy food',
   'Cook food',
   'Eat food',
 ];
-let workItems = [];
+const workItems = [];
 
 app.get('/', function (req, res) {
-  const today = new Date();
-  const currentDay = today.getDay();
-
- let options = {
-   weekday: 'long',
-   day: 'numeric',
-   month: 'long',
- };
-
- let day = today.toLocaleDateString('en-US', options);
+ let day = date.getDate();
 
   res.render('index', {listTitle: day, items});
 });
