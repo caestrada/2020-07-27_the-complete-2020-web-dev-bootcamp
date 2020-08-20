@@ -15,6 +15,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+const posts = [];
+
 app.get('/', (req, res) => {
   res.render('home', {content: homeStartingContent});
 });
@@ -32,8 +34,14 @@ app.get('/compose', (req, res) => {
 });
 
 app.post('/compose', (req, res) => {
-  console.log(req.body);
-  res.redirect('/compose');
+  const {postTitle, postBody} = req.body;
+  const post = {
+    title: postTitle,
+    content: postBody,
+  }
+  posts.push(post);
+  console.log(posts);
+  res.redirect('/');
 });
 
 app.listen(3000, function() {
