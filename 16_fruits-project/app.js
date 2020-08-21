@@ -1,45 +1,38 @@
-const { MongoClient } = require("mongodb");
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/fruitsDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Replace the uri string with your MongoDB deployment's connection string.
-const uri = "mongodb://localhost:27017";
-
-const dbName = 'fruitsDB';
-
-const client = new MongoClient(uri, { useUnifiedTopology: true });
-
-client.connect((err) => {
-    console.log('Connected successfully to server');
-
-    const db = client.db(dbName);
-
-    insertDocuments(db, function() {
-        client.close();
-    })
+// Fruit
+const fruitSchema = new mongoose.Schema({
+    name: String,
+    rating: Number,
+    review: String,
 });
+const Fruit = mongoose.model('Fruit', fruitSchema);
+const fruit = new Fruit(
+    { name: 'Apple', rating: 7, review: "Pretty solid of a fruit."}
+);
+// fruit.save();
+Fruit.find((err, fruits) => {
+    if (err) {
+        console.log(err);
+        return;
+    } 
 
-const insertDocuments = (db, callback) => {
-    // Get the documents collection
-    const collection = db.collection('fruits');
+    mongoose.connection.close();
+    // console.log(fruits);
+    fruits.forEach(fruit => {
+        console.log(fruit.name);
+    })
+})
 
-    // Insert some documents
-    collection.insertMany([
-        {
-            name: 'Apple',
-            score: 8,
-            review: 'Great fruit',
-        },
-        {
-            name: 'Orange',
-            score: 6,
-            review: 'Kinda sour',
-        },
-        {
-            name: 'Banana',
-            score: 9,
-            review: 'Great stuff!',
-        },
-    ], (err, result) => {
-        console.log('Inserted 3 documents into the collection');
-        callback(result);
-    });
-}
+// Person
+const personSchema = new mongoose.Schema({
+    name: String,
+    age: Number,
+});
+const Person = mongoose.model('Person', personSchema);
+const person = new Person(
+    { name: 'Carlos Estrada', age: 34}
+);
+// person.save();
+
