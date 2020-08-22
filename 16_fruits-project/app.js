@@ -36,10 +36,11 @@ Fruit.find((err, fruits) => {
 const personSchema = new mongoose.Schema({
     name: String,
     age: Number,
+    favoriteFruit: fruitSchema,
 });
 const Person = mongoose.model('Person', personSchema);
 const person = new Person(
-    { name: 'Carlos Estrada', age: 34}
+    { name: 'Amy', age: 12, favoriteFruit: fruit}
 );
 // person.save();
 
