@@ -27,14 +27,6 @@ const item3 = new Item({
 });
 const defaultItems = [item1, item2, item3];
 
-// Item.insertMany(defaultItems, (err) => {
-//   if (err) {
-//     console.log(err);
-//     return;
-//   }
-
-//   console.log('Successfully saved default items to DB.');
-// });
 
 const workItems = [];
 
@@ -46,8 +38,15 @@ app.get("/", function(req, res) {
       return;
     }
 
-    console.log('::::: items', items);
-    res.render("list", {listTitle: 'Today', newListItems: items});
+    if (items.length === 0) {
+      Item.insertMany(defaultItems, (err) => {
+        if (err) { console.log(err); }
+
+        res.redirect('/');
+      });
+    } else {
+      res.render("list", {listTitle: 'Today', newListItems: items});
+    }
   })
 
 });
